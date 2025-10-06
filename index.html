@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johann Banegas</title>
+    <style>
+        /* CSS - Estilos para hacer la página bonita */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ea8766 0%, #4b57a2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 350px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        #contador {
+            font-size: 4em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            transition: transform 0.2s;
+        }
+
+        #contador.animar {
+            transform: scale(1.2);
+        }
+
+        .botones {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #incrementar {
+            background: #48bb78;
+            color: white;
+        }
+
+        #decrementar {
+            background: #f56565;
+            color: white;
+        }
+        #multiplicar {
+    background: #ed8936; /* Naranja */
+    color: white;
+}
+
+        #resetear {
+            background: #4299e1;
+            color: white;
+        }
+
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info p {
+            color: #555;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .info strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML - Estructura de la página -->
+    <div class="container">
+        <h1>🎯 Contador Interactivo</h1>
+        
+        <!-- Este es el número que cambiará -->
+        <div id="contador">0</div>
+        
+        <!-- Botones para interactuar -->
+        <div class="botones">
+            <button id="incrementar">➕ Sumar</button>
+            <button id="decrementar">➖ Restar</button>
+            <button id="multiplicar">✖️ Multiplicar</button>
+            <button id="resetear">🔄 Resetear</button>
+        </div>
+
+        <!-- Información para el estudiante -->
+        <div class="info">
+            <p><strong>🎓 Conceptos que estás viendo:</strong></p>
+            <p>✅ HTML: Estructura de la página</p>
+            <p>✅ CSS: Estilos y diseño visual</p>
+            <p>✅ JavaScript: Interactividad y lógica</p>
+            <p>✅ DOM: Manipulación de elementos</p>
+        </div>
+    </div>
+
+    <script>
+        // JAVASCRIPT - Aquí va la lógica de programación
+        
+        // 1. SELECCIONAR ELEMENTOS DEL DOM
+        // Esto es como "agarrar" elementos de tu HTML para usarlos en JS
+        const contadorElemento = document.getElementById('contador');
+        const botonIncrementar = document.getElementById('incrementar');
+        const botonDecrementar = document.getElementById('decrementar');
+        const botonMultiplicar = document.getElementById('multiplicar');
+        const botonResetear = document.getElementById('resetear');
+
+        // 2. VARIABLE PARA GUARDAR EL NÚMERO
+        let numero = 0;
+
+        // 3. FUNCIÓN PARA ACTUALIZAR EL DOM
+        function actualizarContador() {
+            contadorElemento.textContent = numero;
+            
+            // Agregar animación
+            contadorElemento.classList.add('animar');
+            setTimeout(() => {
+                contadorElemento.classList.remove('animar');
+            }, 200);
+            
+            // Cambiar color según el número
+            if (numero > 0) {
+                contadorElemento.style.color = '#48bb78'; // Verde
+            } else if (numero < 0) {
+                contadorElemento.style.color = '#f56565'; // Rojo
+            } else {
+                contadorElemento.style.color = '#667eea'; // Morado
+            }
+        }
+
+        // 4. EVENTOS - Escuchar clicks en los botones
+        botonIncrementar.addEventListener('click', function() {
+            numero = numero + 5; // numero = numero + 1
+            actualizarContador();
+        });
+
+        botonDecrementar.addEventListener('click', function() {
+            numero--; // numero = numero - 1
+            actualizarContador();
+        });
+
+        botonMultiplicar.addEventListener('click', function() {
+            numero = numero * 2; // numero = numero * 2
+            actualizarContador();
+        });
+
+        botonResetear.addEventListener('click', function() {
+            numero = 0;
+            actualizarContador();
+        });
+
+        // 5. BONUS - Atajos de teclado
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowUp') {
+                numero++;
+                actualizarContador();
+            } else if (event.key === 'ArrowDown') {
+                numero--;
+                actualizarContador();
+            } else if (event.key === 'r' || event.key === 'R') {
+                numero = 0;
+                actualizarContador();
+            }
+        });
+
+        // Mensaje en consola para el estudiante
+        console.log('🎉 ¡Bienvenido! Abre las DevTools (F12) para ver este mensaje');
+        console.log('💡 Tip: Usa las flechas ↑↓ del teclado o la tecla R');
+    </script>
+</body>
+</html>
